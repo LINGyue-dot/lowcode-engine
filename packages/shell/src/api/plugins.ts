@@ -70,6 +70,7 @@ export class Plugins implements IPublicApiPlugins {
     return await this[pluginsSymbol].delete(pluginName);
   }
 
+  // ??? 为了支持 disabled 状态的插件，需要代理吗？
   toProxy() {
     return new Proxy(this, {
       get(target, prop, receiver) {

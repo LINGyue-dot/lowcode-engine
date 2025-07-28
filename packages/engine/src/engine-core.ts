@@ -30,10 +30,7 @@ import {
   PluginPreference,
   IDesigner,
 } from '@alilc/lowcode-designer';
-import {
-  Skeleton as InnerSkeleton,
-  registerDefaults,
-} from '@alilc/lowcode-editor-skeleton';
+import { Skeleton as InnerSkeleton, registerDefaults } from '@alilc/lowcode-editor-skeleton';
 import {
   Workspace as InnerWorkspace,
   Workbench as WorkSpaceWorkbench,
@@ -73,7 +70,11 @@ export * from './modules/skeleton-types';
 export * from './modules/designer-types';
 export * from './modules/lowcode-types';
 
-async function registryInnerPlugin(designer: IDesigner, editor: IEditor, plugins: IPublicApiPlugins): Promise<IPublicTypeDisposable> {
+async function registryInnerPlugin(
+  designer: IDesigner,
+  editor: IEditor,
+  plugins: IPublicApiPlugins,
+): Promise<IPublicTypeDisposable> {
   // 注册一批内置插件
   const componentMetaParserPlugin = componentMetaParser(designer);
   const defaultPanelRegistryPlugin = defaultPanelRegistry(editor);
@@ -139,7 +140,11 @@ let plugins: Plugins;
 
 const pluginContextApiAssembler: ILowCodePluginContextApiAssembler = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  assembleApis: (context: ILowCodePluginContextPrivate, pluginName: string, meta: IPublicTypePluginMeta) => {
+  assembleApis: (
+    context: ILowCodePluginContextPrivate,
+    pluginName: string,
+    meta: IPublicTypePluginMeta,
+  ) => {
     context.hotkey = hotkey;
     context.project = project;
     context.skeleton = new Skeleton(innerSkeleton, pluginName, false);
@@ -165,6 +170,7 @@ const pluginContextApiAssembler: ILowCodePluginContextApiAssembler = {
 };
 
 const innerPlugins = new LowCodePluginManager(pluginContextApiAssembler);
+//
 plugins = new Plugins(innerPlugins).toProxy();
 editor.set('innerPlugins' as any, innerPlugins);
 editor.set('plugins' as any, plugins);
@@ -219,7 +225,7 @@ export async function init(
   container?: HTMLElement,
   options?: IPublicTypeEngineOptions,
   pluginPreference?: PluginPreference,
-  ) {
+) {
   await destroy();
   let engineOptions = null;
   if (isPlainObject(container)) {
@@ -228,6 +234,7 @@ export async function init(
     engineContainer.id = 'engine';
     document.body.appendChild(engineContainer);
   } else {
+    // 传入 DOM 节点
     engineOptions = options;
     engineContainer = container;
     if (!container) {
@@ -275,7 +282,7 @@ export async function destroy() {
   // remove all documents
   const { documents } = project;
   if (Array.isArray(documents) && documents.length > 0) {
-    documents.forEach(((doc: IPublicModelDocumentModel) => project.removeDocument(doc)));
+    documents.forEach((doc: IPublicModelDocumentModel) => project.removeDocument(doc));
   }
 
   // TODO: delete plugins except for core plugins

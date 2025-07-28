@@ -1,3 +1,6 @@
+/**
+ * 主要页面布局 workspace
+ */
 import { Component } from 'react';
 import { TipContainer, observer } from '@alilc/lowcode-editor-core';
 import classNames from 'classnames';

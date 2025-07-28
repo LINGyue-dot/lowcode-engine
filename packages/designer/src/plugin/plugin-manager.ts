@@ -57,6 +57,7 @@ export class LowCodePluginManager implements ILowCodePluginManager {
   }
 
   /**
+   * 外部调用 plugins.register 是走这里
    * register a plugin
    * @param pluginConfigCreator - a creator function which returns the plugin config
    * @param options - the plugin options
