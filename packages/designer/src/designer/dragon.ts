@@ -43,7 +43,11 @@ export function isDragNodeDataObject(obj: any): obj is IPublicTypeDragNodeDataOb
  * @deprecated use same function in @alilc/lowcode-utils
  */
 export function isDragAnyObject(obj: any): obj is IPublicTypeDragAnyObject {
-  return obj && obj.type !== IPublicEnumDragObjectType.NodeData && obj.type !== IPublicEnumDragObjectType.Node;
+  return (
+    obj &&
+    obj.type !== IPublicEnumDragObjectType.NodeData &&
+    obj.type !== IPublicEnumDragObjectType.Node
+  );
 }
 
 export function isLocateEvent(e: any): e is ILocateEvent {
@@ -54,6 +58,12 @@ const SHAKE_DISTANCE = 4;
 
 /**
  * mouse shake check
+ * 碰撞检测
+ *
+ * 以组件从物料区移动到画布中为例
+ * e1：组件监听的 mousedown 事件，在 mousemove 的时候 screenX screenY 会变化
+ * e2 ，document 以及 iframe document 监听的 mousemove 事件
+ * 当鼠标移动到 iframe 上的时候，document 的 e2 screenX screenY 不会变化了，所以可以用来检测
  */
 export function isShaken(e1: MouseEvent | DragEvent, e2: MouseEvent | DragEvent): boolean {
   if ((e1 as any).shaken) {
@@ -62,6 +72,7 @@ export function isShaken(e1: MouseEvent | DragEvent, e2: MouseEvent | DragEvent)
   if (e1.target !== e2.target) {
     return true;
   }
+  // 碰撞检测
   return (
     Math.pow(e1.clientY - e2.clientY, 2) + Math.pow(e1.clientX - e2.clientX, 2) > SHAKE_DISTANCE
   );
@@ -95,10 +106,7 @@ function isDragEvent(e: any): e is DragEvent {
   return e?.type?.startsWith('drag');
 }
 
-export interface IDragon extends IPublicModelDragon<
-  INode,
-  ILocateEvent
-> {
+export interface IDragon extends IPublicModelDragon<INode, ILocateEvent> {
   emitter: IEventBus;
 }
 
@@ -140,10 +148,12 @@ export class Dragon implements IDragon {
 
   /**
    * Quick listen a shell(container element) drag behavior
+   * 例如拖拽左侧物料组件初始化的时候注册
    * @param shell container element
    * @param boost boost got a drag object
    */
   from(shell: Element, boost: (e: MouseEvent) => IPublicModelDragObject | null) {
+    console.log('shell', shell);
     const mousedown = (e: MouseEvent) => {
       // ESC or RightClick
       if (e.which === 3 || e.button === 2) {
@@ -158,6 +168,7 @@ export class Dragon implements IDragon {
 
       this.boost(dragObject, e);
     };
+    // shell 是左侧物料区
     shell.addEventListener('mousedown', mousedown as any);
     return () => {
       shell.removeEventListener('mousedown', mousedown as any);
@@ -166,17 +177,30 @@ export class Dragon implements IDragon {
 
   /**
    * boost your dragObject for dragging(flying) 发射拖拽对象
+   * 左侧物料区/大纲/画布组件 onMouseDown 的时候触发
+   *
+   * 左侧物料区拖拽到画布中的时候：
+   * 左侧物料区触发位置另外一个项目在 lowcode-plugins/packages/plugin-components-pane/src/pane/index.tsx#181
+   * dragObject 就是左侧物料区域 div 在 addEventListener
+   * handleEvents 监听源就是页面的 document 以及中间 iframe 的 document
    *
    * @param dragObject 拖拽对象
    * @param boostEvent 拖拽初始时事件
    */
-  boost(dragObject: IPublicModelDragObject, boostEvent: MouseEvent | DragEvent, fromRglNode?: INode | IPublicModelNode) {
+  boost(
+    dragObject: IPublicModelDragObject,
+    boostEvent: MouseEvent | DragEvent,
+    fromRglNode?: INode | IPublicModelNode,
+  ) {
     const { designer } = this;
     const masterSensors = this.getMasterSensors();
     const handleEvents = makeEventsHandler(boostEvent, masterSensors);
     const newBie = !isDragNodeObject(dragObject);
     const forceCopyState =
-      isDragNodeObject(dragObject) && dragObject.nodes.some((node: Node | IPublicModelNode) => (typeof node.isSlot === 'function' ? node.isSlot() : node.isSlot));
+      isDragNodeObject(dragObject) &&
+      dragObject.nodes.some((node: Node | IPublicModelNode) =>
+        typeof node.isSlot === 'function' ? node.isSlot() : node.isSlot,
+      );
     const isBoostFromDragAPI = isDragEvent(boostEvent);
     let lastSensor: IPublicModelSensor | undefined;
 
@@ -231,6 +255,7 @@ export class Dragon implements IDragon {
 
     let lastArrive: any;
     const drag = (e: MouseEvent | DragEvent) => {
+      console.log('drag', e);
       // FIXME: donot setcopy when: newbie & no location
       checkcopy(e);
 
@@ -245,31 +270,34 @@ export class Dragon implements IDragon {
       const { isRGL, rglNode } = getRGL(e);
       const locateEvent = createLocateEvent(e);
       const sensor = chooseSensor(locateEvent);
+      console.log('isRGL', isRGL, rglNode, dragObject.nodes, sensor);
 
       /* istanbul ignore next */
       if (isRGL) {
         // 禁止被拖拽元素的阻断
-        const nodeInst = dragObject.nodes[0].getDOMNode();
+        const nodeInst = dragObject?.nodes?.[0]?.getDOMNode();
         if (nodeInst && nodeInst.style) {
           this.nodeInstPointerEvents = true;
           nodeInst.style.pointerEvents = 'none';
         }
         // 原生拖拽
-        this.emitter.emit('rgl.sleeping', false);
+        // this.emitter.emit('rgl.sleeping', false);
         if (fromRglNode && fromRglNode.id === rglNode.id) {
           designer.clearLocation();
           this.clearState();
           this.emitter.emit('drag', locateEvent);
           return;
         }
-        this._canDrop = !!sensor?.locate(locateEvent);
+        // TODO: csz 这里修改了，为啥 drag 过程中自动触发 drop ？
+        // this._canDrop = !!sensor?.locate(locateEvent);
+        this._canDrop = false;
         if (this._canDrop) {
-          this.emitter.emit('rgl.add.placeholder', {
-            rglNode,
-            fromRglNode,
-            node: locateEvent.dragObject?.nodes[0],
-            event: e,
-          });
+          // this.emitter.emit('rgl.add.placeholder', {
+          //   rglNode,
+          //   fromRglNode,
+          //   node: locateEvent.dragObject?.nodes[0],
+          //   event: e,
+          // });
           designer.clearLocation();
           this.clearState();
           this.emitter.emit('drag', locateEvent);
@@ -277,8 +305,8 @@ export class Dragon implements IDragon {
         }
       } else {
         this._canDrop = false;
-        this.emitter.emit('rgl.remove.placeholder');
-        this.emitter.emit('rgl.sleeping', true);
+        // this.emitter.emit('rgl.remove.placeholder');
+        // this.emitter.emit('rgl.sleeping', true);
       }
       if (sensor) {
         sensor.fixEvent(locateEvent);
@@ -321,6 +349,7 @@ export class Dragon implements IDragon {
         return;
       }
 
+      // 第一次 move 到可放置区域的时候执行这里
       // first move check is shaken
       if (isShaken(boostEvent, e)) {
         // is shaken dragstart
@@ -339,9 +368,10 @@ export class Dragon implements IDragon {
 
     // end-tail drag process
     const over = (e?: any) => {
+      console.log('over', e, this._dragging);
       // 禁止被拖拽元素的阻断
       if (this.nodeInstPointerEvents) {
-        const nodeInst = dragObject.nodes[0].getDOMNode();
+        const nodeInst = dragObject?.nodes?.[0]?.getDOMNode();
         if (nodeInst && nodeInst.style) {
           nodeInst.style.pointerEvents = '';
         }
@@ -353,21 +383,21 @@ export class Dragon implements IDragon {
         const { isRGL, rglNode } = getRGL(e);
         /* istanbul ignore next */
         if (isRGL && this._canDrop && this._dragging) {
-          const tarNode = dragObject.nodes[0];
-          if (rglNode.id !== tarNode.id) {
+          const tarNode = dragObject?.nodes?.[0];
+          if (rglNode.id !== tarNode?.id) {
             // 避免死循环
-            this.emitter.emit('rgl.drop', {
-              rglNode,
-              node: tarNode,
-            });
+            // this.emitter.emit('rgl.drop', {
+            //   rglNode,
+            //   node: tarNode,
+            // });
             const selection = designer.project.currentDocument?.selection;
-            selection?.select(tarNode.id);
+            tarNode?.id && selection?.select(tarNode?.id);
           }
         }
       }
 
       // 移除磁帖占位消息
-      this.emitter.emit('rgl.remove.placeholder');
+      // this.emitter.emit('rgl.remove.placeholder');
 
       /* istanbul ignore next */
       if (e && isDragEvent(e)) {
@@ -433,7 +463,7 @@ export class Dragon implements IDragon {
       if (!sourceDocument || sourceDocument === document) {
         evt.globalX = e.clientX;
         evt.globalY = e.clientY;
-      } else /* istanbul ignore next */ {
+      } /* istanbul ignore next */ else {
         // event from simulator sandbox
         let srcSim: ISimulatorHost | undefined;
         const lastSim = lastSensor && isSimulatorHost(lastSensor) ? lastSensor : null;
@@ -467,7 +497,9 @@ export class Dragon implements IDragon {
     /* istanbul ignore next */
     const chooseSensor = (e: ILocateEvent) => {
       // this.sensors will change on dragstart
-      const sensors: IPublicModelSensor[] = this.sensors.concat(masterSensors as IPublicModelSensor[]);
+      const sensors: IPublicModelSensor[] = this.sensors.concat(
+        masterSensors as IPublicModelSensor[],
+      );
       let sensor =
         e.sensor && e.sensor.isEnter(e)
           ? e.sensor

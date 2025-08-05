@@ -5,6 +5,7 @@ import { Resource as ShellResource, Window as ShellWindow } from '../model';
 import { Plugins } from './plugins';
 import { Skeleton } from './skeleton';
 
+// 参考 https://developer.aliyun.com/article/1215544
 export class Workspace implements IPublicApiWorkspace {
   readonly [workspaceSymbol]: IWorkspace;
 

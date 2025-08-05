@@ -1,8 +1,4 @@
-import {
-  IDragon,
-  ILocateEvent as InnerLocateEvent,
-  INode,
-} from '@alilc/lowcode-designer';
+import { IDragon, ILocateEvent as InnerLocateEvent, INode } from '@alilc/lowcode-designer';
 import { dragonSymbol, nodeSymbol } from '../symbols';
 import LocateEvent from './locate-event';
 import { DragObject } from './drag-object';
@@ -27,11 +23,13 @@ export class Dragon implements IPublicModelDragon {
 
   get [dragonSymbol](): IDragon {
     if (this.workspaceMode) {
+      // 默认是 false
       return this[innerDragonSymbol];
     }
     const workspace = globalContext.get('workspace');
     let editor = globalContext.get('editor');
 
+    // 默认情况下一般是 false
     if (workspace.isActive) {
       editor = workspace.window.editor;
     }
@@ -40,10 +38,7 @@ export class Dragon implements IPublicModelDragon {
     return designer.dragon;
   }
 
-  static create(
-      dragon: IDragon | null,
-      workspaceMode: boolean,
-    ): IPublicModelDragon | null {
+  static create(dragon: IDragon | null, workspaceMode: boolean): IPublicModelDragon | null {
     if (!dragon) {
       return null;
     }
@@ -105,13 +100,21 @@ export class Dragon implements IPublicModelDragon {
    * @param dragObject 拖拽对象
    * @param boostEvent 拖拽初始时事件
    */
-  boost(dragObject: IPublicTypeDragObject, boostEvent: MouseEvent | DragEvent, fromRglNode?: IPublicModelNode & {
-    [nodeSymbol]: INode;
-  }): void {
-    return this[dragonSymbol].boost({
-      ...dragObject,
-      nodes: dragObject.nodes.map((node: any) => node[nodeSymbol]),
-    }, boostEvent, fromRglNode?.[nodeSymbol]);
+  boost(
+    dragObject: IPublicTypeDragObject,
+    boostEvent: MouseEvent | DragEvent,
+    fromRglNode?: IPublicModelNode & {
+      [nodeSymbol]: INode;
+    },
+  ): void {
+    return this[dragonSymbol].boost(
+      {
+        ...dragObject,
+        nodes: dragObject.nodes.map((node: any) => node[nodeSymbol]),
+      },
+      boostEvent,
+      fromRglNode?.[nodeSymbol],
+    );
   }
 
   /**

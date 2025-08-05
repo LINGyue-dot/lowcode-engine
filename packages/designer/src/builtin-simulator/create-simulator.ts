@@ -58,19 +58,13 @@ export function createSimulator(
       const lv = asset.level || level || AssetLevel.Environment;
       const scriptType = asset.scriptType ? ` type="${asset.scriptType}"` : '';
       if (asset.type === AssetType.JSUrl) {
-        scripts[lv].push(
-          `<script src="${asset.content}"${id}${scriptType}></script>`,
-        );
+        scripts[lv].push(`<script src="${asset.content}"${id}${scriptType}></script>`);
       } else if (asset.type === AssetType.JSText) {
         scripts[lv].push(`<script${id}${scriptType}>${asset.content}</script>`);
       } else if (asset.type === AssetType.CSSUrl) {
-        styles[lv].push(
-          `<link rel="stylesheet" href="${asset.content}"${id} />`,
-        );
+        styles[lv].push(`<link rel="stylesheet" href="${asset.content}"${id} />`);
       } else if (asset.type === AssetType.CSSText) {
-        styles[lv].push(
-          `<style type="text/css"${id}>${asset.content}</style>`,
-        );
+        styles[lv].push(`<style type="text/css"${id}>${asset.content}</style>`);
       }
     }
   }
@@ -88,6 +82,7 @@ export function createSimulator(
     })
     .join('');
 
+  // 清空并写入新内容
   doc.open();
   doc.write(`
 <!doctype html>

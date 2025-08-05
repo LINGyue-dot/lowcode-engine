@@ -1,14 +1,16 @@
 import { Component } from 'react';
 import { observer } from '@alilc/lowcode-editor-core';
 import { BuiltinSimulatorHost } from '../host';
-import {
-  DropLocation,
-  isVertical,
-} from '../../designer';
+import { DropLocation, isVertical } from '../../designer';
 import { ISimulatorHost } from '../../simulator';
 import { INode } from '../../document';
 import './insertion.less';
-import { IPublicTypeNodeData, IPublicTypeNodeSchema, IPublicTypeLocationChildrenDetail, IPublicTypeRect } from '@alilc/lowcode-types';
+import {
+  IPublicTypeNodeData,
+  IPublicTypeNodeSchema,
+  IPublicTypeLocationChildrenDetail,
+  IPublicTypeRect,
+} from '@alilc/lowcode-types';
 import { isLocationChildrenDetail } from '@alilc/lowcode-utils';
 
 interface InsertionData {
@@ -23,7 +25,11 @@ interface InsertionData {
 /**
  * 处理拖拽子节点(INode)情况
  */
-function processChildrenDetail(sim: ISimulatorHost, container: INode, detail: IPublicTypeLocationChildrenDetail): InsertionData {
+function processChildrenDetail(
+  sim: ISimulatorHost,
+  container: INode,
+  detail: IPublicTypeLocationChildrenDetail,
+): InsertionData {
   let edge = detail.edge || null;
 
   if (!edge) {
@@ -120,6 +126,8 @@ export class InsertionView extends Component<{ host: BuiltinSimulatorHost }> {
     if (!loc) {
       return null;
     }
+
+    console.log('loc', loc.target?.componentMeta?.advanced.isAbsoluteLayoutContainer, loc);
     // 如果是个绝对定位容器，不需要渲染插入标记
     if (loc.target?.componentMeta?.advanced.isAbsoluteLayoutContainer) {
       return null;
