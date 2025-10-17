@@ -1,0 +1,70 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# 1.4.0 (2025-10-17)
+
+
+### Bug Fixes
+
+* change autorun params to IPublicModelSettingField ([4f7a0b9](https://github.com/alibaba/lowcode-engine/commit/4f7a0b984c50b133807352a953437dcac757fa40))
+* **context-menu:** fix context menu bugs ([c381b85](https://github.com/alibaba/lowcode-engine/commit/c381b85f0a48b215414e72c76864aa8b435fd443))
+* **context-menu:** fix context menu bugs ([8f0291f](https://github.com/alibaba/lowcode-engine/commit/8f0291fc3e58eaec2d786ff8e1854657208d5bde))
+* defaultValue should be evaluated inspite of condition result is falsy, fixes [#1045](https://github.com/alibaba/lowcode-engine/issues/1045) ([fcfce3c](https://github.com/alibaba/lowcode-engine/commit/fcfce3cbeb5a53600c40aea07ffef19c9c9591c4))
+* fix build error due to ts definition ([93e9b6e](https://github.com/alibaba/lowcode-engine/commit/93e9b6ee009f02e9eca6b22ecef5df65af117501))
+* fix engine-core classes is undefined ([8898f1c](https://github.com/alibaba/lowcode-engine/commit/8898f1c4a7bb9766a0ce78632501b98942070ab4))
+* fix responsive invalidation caused by upgrading build-plugin-component ([c7c7d93](https://github.com/alibaba/lowcode-engine/commit/c7c7d93e1a0f64d201f04e75039602e7d10174e3))
+* fix the problem caused by the default metadataTransducer registration timing being too late ([a42f538](https://github.com/alibaba/lowcode-engine/commit/a42f538b06da5cdbbf3ed1fbe8d8992829f1c404))
+* fix the problem of white screen in custom initialization method ([da1450e](https://github.com/alibaba/lowcode-engine/commit/da1450ea1abc52f34d9329deeddeca28be187189))
+* fix the problem that material.getComponentMetasMap returns the wrong result ([e02933c](https://github.com/alibaba/lowcode-engine/commit/e02933c18bc15519b2eba8ad946282502a509611))
+* fix the problem that the default setter is not registered successfully ([2f69837](https://github.com/alibaba/lowcode-engine/commit/2f69837002304c39b50fd8a0b4caebeb5a3b5c46))
+* misspelled words ([aaedee1](https://github.com/alibaba/lowcode-engine/commit/aaedee159db7ac770578905eb9ed77945f599a06))
+* use the outer documentation url of unique key, fixes [#868](https://github.com/alibaba/lowcode-engine/issues/868) ([d770007](https://github.com/alibaba/lowcode-engine/commit/d770007ff8c39e6cf527e07a7d6468dbb88c776d))
+* Workbench should receive the original skeleton other than shell skeleton ([d5c3ca1](https://github.com/alibaba/lowcode-engine/commit/d5c3ca1068ce2c2140980bd059d0da333574dc34))
+
+
+### Features
+
+* add APIs for plugin-outline-pane which will be splitted in near future ([7b58b6a](https://github.com/alibaba/lowcode-engine/commit/7b58b6a6d755395ba80f4857d617a0d3841084f1))
+* add common.utils.executeTransaction API to change multi nodes ([e818d84](https://github.com/alibaba/lowcode-engine/commit/e818d84c8b22ae112498e5b2bf419dc07b91fc29))
+* add commonUI API ([be0456f](https://github.com/alibaba/lowcode-engine/commit/be0456fb398c731c4492fbca83aebc8ed9e9f3f3))
+* add createIntl to common.utils, and fix misuse of zh_CN ([84e0c1f](https://github.com/alibaba/lowcode-engine/commit/84e0c1f09609d81716274af2f94c676e68ab8f15))
+* add editorCabinSymbol and skeletonCabinSymbol ([e3842b0](https://github.com/alibaba/lowcode-engine/commit/e3842b05310010ac0d4899e524b7932b4948d337))
+* add getConvertedExtraKey / getOriginalExtraKey to utils ([8e7bb9d](https://github.com/alibaba/lowcode-engine/commit/8e7bb9d4b86454dd77c6928eb769cd764cad8630))
+* add shell config model ([b319286](https://github.com/alibaba/lowcode-engine/commit/b319286c4896e34844e6f21a552874f0f70d0742))
+* add simulatorRender shell ([cfc22f7](https://github.com/alibaba/lowcode-engine/commit/cfc22f7ecc666ae8258013634c3aa17958299b90))
+* add skeleton item model ([239bb29](https://github.com/alibaba/lowcode-engine/commit/239bb29de1853c87f687a4355df76179a09d5ae5))
+* add some big features to engine ([c2db198](https://github.com/alibaba/lowcode-engine/commit/c2db198415632e3fa9653a1c08646f0a67514257))
+* add some features ([18d1a4f](https://github.com/alibaba/lowcode-engine/commit/18d1a4fe1d952bcd4715e693def09fee94da49a5))
+* add types for shell, and move functions in types to utils ([55c3fc9](https://github.com/alibaba/lowcode-engine/commit/55c3fc9e58d566edeabd1daa489ac83ba6b787d1))
+* added export of propSymbol and prop classes ([0e18fee](https://github.com/alibaba/lowcode-engine/commit/0e18feeb6e551010eff1d07bbd557971e3086970))
+* added export of SimulatorHost class and simulatorHostSymbol ([f44b5ac](https://github.com/alibaba/lowcode-engine/commit/f44b5aca899f4e02b07faa2e7bf9a9d4530fdcd1))
+* added features in workspace mode ([33fd6bf](https://github.com/alibaba/lowcode-engine/commit/33fd6bf6426f3300a1e95c80b3021fed26656872))
+* added workspace api to support registration of multiple resources ([dae09e3](https://github.com/alibaba/lowcode-engine/commit/dae09e3bcb21b420a88a5e5256320ad50ab1ac2d))
+* **command:** add command apis ([b3880e9](https://github.com/alibaba/lowcode-engine/commit/b3880e9a96c70d750f8f8487913bf6329cdcfb92))
+* **command:** update default commands ([80bb710](https://github.com/alibaba/lowcode-engine/commit/80bb7102b65ccfc24399e372cff5f3fbaf8258a4))
+* **config:** add defaultSettingPanelProps config ([6b14986](https://github.com/alibaba/lowcode-engine/commit/6b14986e8f6cab6af5bc580c9f1a2a4fa925ef5f))
+* **context-menu:** add context-menu css theme, help config, ts define ([844ca78](https://github.com/alibaba/lowcode-engine/commit/844ca783d720e5d8829a8e8e54314c97997ec275))
+* **context-menu:** update context-menu docs, details, styles ([bb5d7dd](https://github.com/alibaba/lowcode-engine/commit/bb5d7ddf827be5e72707cd1e5ccdf09f6ae16cc1))
+* disable global hotkey binding shortcuts in workspace mode ([8c82fe8](https://github.com/alibaba/lowcode-engine/commit/8c82fe8f00ffd92931b9ffa6db3f0ee032c07c55))
+* **engine:** add context menu ([1b00c61](https://github.com/alibaba/lowcode-engine/commit/1b00c61a32027084e531a0ffacb2a9a2020fbcbf))
+* export nodeChildrenSymbol && remove some unnecessary editor.set ([e83adce](https://github.com/alibaba/lowcode-engine/commit/e83adcee815eea73b6b1ed4f43f4d684c11818ca))
+* feat: remove circular dependency between designer and shell ([20c8419](https://github.com/alibaba/lowcode-engine/commit/20c8419f220776c2647da4ff86bba721e65ca389))
+* first commit - genesis ([4f4ac51](https://github.com/alibaba/lowcode-engine/commit/4f4ac5115d18357a7399632860808f6cffc33fad))
+* fix designer:entry ts errors ([4d4a8a6](https://github.com/alibaba/lowcode-engine/commit/4d4a8a6d6f94bfcfe9af0409a3a54b22a89f2d26))
+* **hotkey:** when text is selected, allow the default copy and paste behavior ([4e0b2fa](https://github.com/alibaba/lowcode-engine/commit/4e0b2fae5d2a59f068b1d5315f3fab6134e4d203))
+* optimize context menu details ([3627ae3](https://github.com/alibaba/lowcode-engine/commit/3627ae326a5b46e669d921e5b98e237a44e9bdea))
+* optimize ts definition ([88961aa](https://github.com/alibaba/lowcode-engine/commit/88961aa6409c52ebd7af67efd5134baf3c8ab424))
+* remove editor api ([2c38c5d](https://github.com/alibaba/lowcode-engine/commit/2c38c5d9a03dce36f80941e8672d9b1b69562de0))
+* removed Rax packages, discontinuing support for Rax ([31a031c](https://github.com/alibaba/lowcode-engine/commit/31a031ce4e4cc22c377aa9d1ce961c5df4cad58b))
+* **shell:** add editor-view model ([358dde4](https://github.com/alibaba/lowcode-engine/commit/358dde43a4a6097abc71fd47e708cca7af105acf))
+* support online tree title extra ([778ba32](https://github.com/alibaba/lowcode-engine/commit/778ba32a14d47ba8e57b78de4f815246484e6a6c))
+* support SPA mode ([1f9150e](https://github.com/alibaba/lowcode-engine/commit/1f9150e4b260d522bd7cb31497069b700a1e8576))
+* support the use of events in workspace mode to communicate in different views ([163416f](https://github.com/alibaba/lowcode-engine/commit/163416fcfe291e133551cd75e484cc3ea6d0edc8))
+* update context-menu message ([1132a30](https://github.com/alibaba/lowcode-engine/commit/1132a30483e31d82e33d8aa036f6733bfad67483))
+* update engine classes exports ([97eb477](https://github.com/alibaba/lowcode-engine/commit/97eb477746c95eab15dccc6ec728159e9edb19a3))
+* **utils:** add workspace utils ([ad044f4](https://github.com/alibaba/lowcode-engine/commit/ad044f49ed9064fe1afa5195f68759a76bda5f5e))
+* workspace mode supports webview type views ([1f8d91f](https://github.com/alibaba/lowcode-engine/commit/1f8d91f85f2e98d39b1a7a571310af1112998f75))
+* **workspace:** add enableAutoOpenFirstWindow config and onWindowRendererReady function ([9b50bc7](https://github.com/alibaba/lowcode-engine/commit/9b50bc700e18e02d590d7a77591809cdbad8a160))
+* 在 skeleton 增加几个方法和事件 ([a7d436a](https://github.com/alibaba/lowcode-engine/commit/a7d436a0525a0ce0c7229710077111f283b452f4))
