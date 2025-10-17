@@ -1,6 +1,6 @@
 {
   "name": "@epoch/lowcode-renderer-core",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "renderer core",
   "license": "MIT",
   "main": "lib/index.js",
@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@alilc/lowcode-datasource-engine": "^1.0.0",
-    "@epoch/lowcode-types": "1.4.0",
-    "@epoch/lowcode-utils": "1.4.0",
+    "@epoch/lowcode-types": "1.4.1",
+    "@epoch/lowcode-utils": "1.4.1",
     "classnames": "^2.2.6",
     "debug": "^4.1.1",
     "fetch-jsonp": "^1.1.3",
@@ -33,7 +33,7 @@
     "@alib/build-scripts": "^0.1.18",
     "@alifd/next": "^1.26.0",
     "@babel/plugin-transform-typescript": "^7.16.8",
-    "@epoch/lowcode-designer": "1.4.0",
+    "@epoch/lowcode-designer": "1.4.1",
     "@testing-library/react": "^11.2.2",
     "@types/classnames": "^2.2.11",
     "@types/debug": "^4.1.5",
@@ -49,13 +49,13 @@
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "registry": "http://npm.classup.info"
   },
   "repository": {
     "type": "http",
     "url": "https://github.com/alibaba/lowcode-engine/tree/main/packages/renderer-core"
   },
-  "gitHead": "2669f179e6f899d395ce1942d0fe04f9c5ed48a6",
+  "gitHead": "7ba43b14f271009db8ac07b9c50ce0033d7ae632",
   "bugs": "https://github.com/alibaba/lowcode-engine/issues",
   "homepage": "https://github.com/alibaba/lowcode-engine/#readme"
 }

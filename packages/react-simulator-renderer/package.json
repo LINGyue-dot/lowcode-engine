@@ -1,6 +1,6 @@
 {
   "name": "@epoch/lowcode-react-simulator-renderer",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "react simulator renderer for alibaba lowcode designer",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -17,10 +17,10 @@
     "test:cov": "build-scripts test --config build.test.json --jest-coverage"
   },
   "dependencies": {
-    "@epoch/lowcode-designer": "1.4.0",
-    "@epoch/lowcode-react-renderer": "1.4.0",
-    "@epoch/lowcode-types": "1.4.0",
-    "@epoch/lowcode-utils": "1.4.0",
+    "@epoch/lowcode-designer": "1.4.1",
+    "@epoch/lowcode-react-renderer": "1.4.1",
+    "@epoch/lowcode-types": "1.4.1",
+    "@epoch/lowcode-utils": "1.4.1",
     "classnames": "^2.2.6",
     "mobx": "^6.3.0",
     "mobx-react": "^7.2.0",
@@ -37,13 +37,13 @@
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "registry": "http://npm.classup.info"
   },
   "repository": {
     "type": "http",
     "url": "https://github.com/alibaba/lowcode-engine/tree/main/packages/react-simulator-renderer"
   },
-  "gitHead": "2669f179e6f899d395ce1942d0fe04f9c5ed48a6",
+  "gitHead": "7ba43b14f271009db8ac07b9c50ce0033d7ae632",
   "bugs": "https://github.com/alibaba/lowcode-engine/issues",
   "homepage": "https://github.com/alibaba/lowcode-engine/#readme"
 }
