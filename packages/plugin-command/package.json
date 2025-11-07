@@ -1,6 +1,6 @@
 {
   "name": "@epoch/lowcode-plugin-command",
-  "version": "1.4.1",
+  "version": "1.4.2-beta.0",
   "description": "> TODO: description",
   "author": "liujuping <liujup@foxmail.com>",
   "homepage": "https://github.com/alibaba/lowcode-engine#readme",
@@ -30,8 +30,8 @@
     "url": "https://github.com/alibaba/lowcode-engine/issues"
   },
   "dependencies": {
-    "@epoch/lowcode-types": "1.4.1",
-    "@epoch/lowcode-utils": "1.4.1"
+    "@epoch/lowcode-types": "1.4.2-beta.0",
+    "@epoch/lowcode-utils": "1.4.2-beta.0"
   },
   "devDependencies": {
     "@alib/build-scripts": "^0.1.18"

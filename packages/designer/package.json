@@ -1,6 +1,6 @@
 {
   "name": "@epoch/lowcode-designer",
-  "version": "1.4.1",
+  "version": "1.4.2-beta.0",
   "description": "Designer for Ali LowCode Engine",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -15,9 +15,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@epoch/lowcode-editor-core": "1.4.1",
-    "@epoch/lowcode-types": "1.4.1",
-    "@epoch/lowcode-utils": "1.4.1",
+    "@epoch/lowcode-editor-core": "1.4.2-beta.0",
+    "@epoch/lowcode-types": "1.4.2-beta.0",
+    "@epoch/lowcode-utils": "1.4.2-beta.0",
     "classnames": "^2.2.6",
     "react": "^16",
     "react-dom": "^16.7.0",
